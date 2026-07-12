@@ -31,15 +31,6 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
         with:
           diagnostic-endpoint: ""
-      - name: Nix Darwin Build
-        if: matrix.os == 'macos-latest'
-        run: |
-            for host in $(nix eval --json .#darwinConfigurations --apply builtins.attrNames | jq -r '.[]'); do
-                nix build ".#darwinConfigurations.$host.config.system.build.toplevel" --no-link
-            done
       - name: Nix Linux Build
-        if: matrix.os == 'ubuntu-latest'
         run: |
-            for host in $(nix eval --json .#nixosConfigurations --apply builtins.attrNames | jq -r '.[]'); do
-                nix build ".#nixosConfigurations.$host.config.system.build.toplevel" --no-link
-            done
+          nix build ".#nixosConfigurations.router.config.system.build.toplevel" --no-link
