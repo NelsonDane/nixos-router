@@ -3,6 +3,9 @@
     system = "x86_64-linux";
     specialArgs = { inherit inputs; };
     modules = [
+      # Hardware
+      config.flake.modules.nixos.hardware
+      # Modules
       config.flake.modules.nixos.base
       config.flake.modules.nixos.dhcp
       config.flake.modules.nixos.disko
@@ -18,9 +21,6 @@
       {
         networking.hostName = "router";
         system.stateVersion = "26.05";
-
-        boot.loader.systemd-boot.enable = true;
-        boot.loader.efi.canTouchEfiVariables = true;
       }
     ];
   };
