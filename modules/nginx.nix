@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, ... }:
 let
   domain = "nelsondane.com";
   subdomains = {
@@ -46,7 +46,7 @@ in
           "*.${domain}"
           "*.cluster.${domain}"
         ];
-        group = config.services.nginx.group;
+        group = "nginx";
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
         dnsPropagationCheck = true;

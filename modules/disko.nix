@@ -2,7 +2,8 @@
 # https://github.com/nix-community/disko/blob/master/example/simple-efi.nix
 # https://haseebmajid.dev/posts/2024-07-30-how-i-setup-btrfs-and-luks-on-nixos-using-disko/
 {
-  flake.modules.nixos.disko = {
+  flake.modules.nixos.disko = { inputs, ... }: {
+    imports = [ inputs.disko.nixosModules.disko ];
     disko.devices = {
       disk = {
         main = {

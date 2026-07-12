@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.wireguard = {
+  flake.modules.nixos.wg = {
     systemd.network.netdevs."30-wg0" = {
       netdevConfig = {
         Kind = "wireguard";

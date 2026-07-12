@@ -1,5 +1,6 @@
 {
-  flake.modules.nixos.impermanence = {
+  flake.modules.nixos.impermanence = { inputs, ... }: {
+    imports = [ inputs.impermanence.nixosModules.impermanence ];
     # Much thanks to:
     # https://github.com/Swarsel/.dotfiles/blob/main/modules/nixos/common/impermanence.nix
     # https://notashelf.dev/posts/impermanence
