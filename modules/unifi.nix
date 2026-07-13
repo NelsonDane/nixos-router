@@ -1,11 +1,9 @@
 _: {
-  flake.modules.nixos.unifi = { pkgs, ... }: {
+  flake.modules.nixos.unifi = _: {
     # https://mynixos.com/nixpkgs/options/services.unifi
     services.unifi = {
       enable = true;
       openFirewall = true;
-      # https://github.com/NixOS/nixpkgs/issues/461961
-      mongodbPackage = pkgs.mongodb-ce;
     };
   };
 }
