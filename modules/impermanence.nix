@@ -62,6 +62,7 @@
         "/var/lib/unifi"
         "/var/lib/home-assistant"
         "/var/lib/kea"
+        "/var/lib/acme"
       ];
       files = [
         "/etc/machine-id"

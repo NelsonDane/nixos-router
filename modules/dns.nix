@@ -36,6 +36,16 @@
 
         upstreams.groups.default = [ "127.0.0.8" ]; # Unbound
 
+        # Split-horizon: resolve locally-served subdomains to the router
+        # instead of reaching out to the public records (Oracle jumphost).
+        customDNS = {
+          mapping = {
+            "unifi.nelsondane.com" = "10.0.2.1";
+            "ha.nelsondane.com" = "10.0.2.1";
+            "cluster.nelsondane.com" = "10.0.2.1"; # covers *.cluster.nelsondane.com
+          };
+        };
+
         blocking = {
           denylists = {
             "stevenblack" = [ "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts" ];

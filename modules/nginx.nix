@@ -51,10 +51,5 @@ in
         reloadServices = [ "nginx" ];
       };
     };
-
-    networking.firewall.allowedTCPPorts = [
-      80
-      443
-    ];
   };
 }
