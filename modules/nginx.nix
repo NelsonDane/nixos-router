@@ -1,16 +1,15 @@
-{ lib, ... }:
 let
   domain = "nelsondane.com";
   subdomains = {
     "opnsense" = "https://10.0.2.1:443";
     "datto" = "https://10.0.2.5:8006";
     "unifi" = "https://localhost:8443";
-    "ha" = "http://10.0.2.20:8123";
+    "ha" = "http://127.0.0.1:8123";
     "*.cluster" = "http://10.0.2.50:80";
   };
 in
 {
-  flake.modules.nixos.nginx = {
+  flake.modules.nixos.nginx = { config, lib, ... }: {
     # https://wiki.nixos.org/wiki/Nginx
     services.nginx = {
       enable = true;
@@ -37,7 +36,7 @@ in
     };
 
     # https://wiki.nixos.org/wiki/ACME
-    # age.secrets.cloudflare.rekeyFile = ../../secrets/cloudflare.age;
+    age.secrets.cloudflare.rekeyFile = ../secrets/cloudflare.age;
     security.acme = {
       acceptTerms = true;
       certs."${domain}" = {
@@ -50,7 +49,7 @@ in
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
         dnsPropagationCheck = true;
-        # environmentFile = config.age.secrets.cloudflare.path;
+        environmentFile = config.age.secrets.cloudflare.path;
         reloadServices = [ "nginx" ];
       };
     };
