@@ -42,7 +42,7 @@
             "big.oisd" = [ "https://big.oisd.nl/" ];
           };
           clientGroupsBlock.default = [
-            "steveblack"
+            "stevenblack"
             "big.oisd"
           ];
 
