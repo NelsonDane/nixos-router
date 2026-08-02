@@ -44,6 +44,10 @@
           iifname { "guest", "iot" } udp dport 67 accept
           iifname { "guest", "iot" } udp dport 5353 accept
 
+          # UniFi controller: guest portal, device discovery, STUN
+          iifname { "guest", "iot" } tcp dport { 8080, 8880, 8843, 6789 } accept
+          iifname { "guest", "iot" } udp dport { 3478, 10001 } accept
+
           # From WAN, only allow a little ICMP and WireGuard
           iifname "wan" icmp type { echo-request, destination-unreachable, time-exceeded } accept
           iifname "wan" udp dport 51820 accept
