@@ -30,7 +30,7 @@ _: {
         environment.systemPackages = mkIf (config.age.hostPubkey != null) [
           inputs.agenix-rekey.packages.${pkgs.stdenv.hostPlatform.system}.default
         ];
-        age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+        age.identityPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
       };
     };
 }

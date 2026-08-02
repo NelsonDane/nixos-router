@@ -25,7 +25,7 @@
         networking.hostName = "router";
         system.stateVersion = "26.05";
 
-        age.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJZck3ngW5UFVlbUdjRHuLwJyrWVNLH8efws1XbAC2Zm";
+        age.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMIMpzboj1AamRyT58z4YS5w0CDhDrTW87umak/nU5yo";
       }
     ];
   };
