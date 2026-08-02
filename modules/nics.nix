@@ -2,8 +2,10 @@
   flake.modules.nixos.nics = {
     boot.kernel.sysctl = {
       "net.ipv4.conf.all.forwarding" = true;
-      "net.ipv6.conf.all.forwarding" = true;
     };
+
+    # No IPv6 support yet
+    networking.enableIPv6 = false;
 
     networking.useNetworkd = true;
     systemd.network.enable = true;
@@ -21,23 +23,6 @@
       "10-lan" = {
         matchConfig.MACAddress = "00:01:2e:90:27:09";
         linkConfig.Name = "lan";
-      };
-    };
-
-    systemd.network.netdevs = {
-      "20-guest" = {
-        netdevConfig = {
-          Kind = "vlan";
-          Name = "guest";
-        };
-        vlanConfig.Id = 20;
-      };
-      "30-iot" = {
-        netdevConfig = {
-          Kind = "vlan";
-          Name = "iot";
-        };
-        vlanConfig.Id = 30;
       };
     };
 

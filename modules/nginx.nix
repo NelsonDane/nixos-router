@@ -18,13 +18,14 @@ in
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
 
-      # Only allow PFS-enabled ciphers with AES256
-      sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
-
       virtualHosts = lib.genAttrs (lib.attrNames subdomains) (subdomain: {
         serverName = "${subdomain}.${domain}";
         useACMEHost = "${domain}";
         forceSSL = true;
+        # Strict HSTS once we always serve over TLS
+        extraConfig = ''
+          add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+        '';
         locations."/" = {
           proxyPass = subdomains.${subdomain};
           proxyWebsockets = true;
