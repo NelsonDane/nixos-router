@@ -1,6 +1,11 @@
 {
   flake.modules.nixos.wg = { config, ... }: {
-    age.secrets.wg0.rekeyFile = ../secrets/wireguard.age;
+    age.secrets.wg0 = {
+      rekeyFile = ../secrets/wireguard.age;
+      owner = "systemd-network";
+      group = "systemd-network";
+      mode = "0400";
+    };
 
     systemd.network.netdevs."30-wg0" = {
       netdevConfig = {
