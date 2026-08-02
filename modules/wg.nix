@@ -1,5 +1,7 @@
 {
-  flake.modules.nixos.wg = {
+  flake.modules.nixos.wg = { config, ... }: {
+    age.secrets.wg0.rekeyFile = ../secrets/wireguard.age;
+
     systemd.network.netdevs."30-wg0" = {
       netdevConfig = {
         Kind = "wireguard";
@@ -7,7 +9,7 @@
       };
       wireguardConfig = {
         ListenPort = 51820;
-        PrivateKeyFile = "/etc/wireguard/wg0-private.key";
+        PrivateKeyFile = config.age.secrets.wg0.path;
       };
       wireguardPeers = [
         {

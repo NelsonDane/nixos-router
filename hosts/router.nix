@@ -6,6 +6,7 @@
       # Hardware
       config.flake.modules.nixos.hardware
       # Modules
+      config.flake.modules.nixos.age
       config.flake.modules.nixos.base
       config.flake.modules.nixos.dhcp
       config.flake.modules.nixos.disko
@@ -21,6 +22,8 @@
       {
         networking.hostName = "router";
         system.stateVersion = "26.05";
+
+        age.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJZck3ngW5UFVlbUdjRHuLwJyrWVNLH8efws1XbAC2Zm";
       }
     ];
   };

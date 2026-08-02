@@ -26,14 +26,32 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+    };
+
+    agenix-rekey = {
+      url = "github:oddlama/agenix-rekey";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        (inputs.import-tree ./modules)
-        (inputs.import-tree ./hosts)
-      ];
+    { self, ... }@inputs:
+    let
+      dendritic = inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+        imports = [
+          (inputs.import-tree ./modules)
+          (inputs.import-tree ./hosts)
+        ];
+      };
+    in
+    dendritic
+    // {
+      agenix-rekey = inputs.agenix-rekey.configure {
+        userFlake = self;
+        inherit (self) nixosConfigurations;
+      };
     };
 }
