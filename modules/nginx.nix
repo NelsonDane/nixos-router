@@ -1,9 +1,7 @@
 let
   domain = "nelsondane.com";
   subdomains = {
-    "opnsense" = "https://10.0.2.1:443";
-    "datto" = "https://10.0.2.5:8006";
-    "unifi" = "https://localhost:8443";
+    "unifi" = "https://127.0.0.1:8443";
     "ha" = "http://127.0.0.1:8123";
     "*.cluster" = "http://10.0.2.50:80";
   };
