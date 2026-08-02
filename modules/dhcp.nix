@@ -36,6 +36,43 @@
                 data = "10.0.2.1";
               }
             ];
+            reservations = [
+              # TP-Link Switch
+              {
+                hw-address = "34:60:f9:06:77:c8";
+                ip-address = "10.0.2.2";
+              }
+              # Desktop PC
+              {
+                hw-address = "a8:a1:59:bc:e4:96";
+                ip-address = "10.0.2.15";
+              }
+              # Cluster Node 1
+              {
+                hw-address = "e0:70:ea:cd:a6:2c";
+                ip-address = "10.0.2.51";
+              }
+              # Cluster Node 2
+              {
+                hw-address = "e0:70:ea:cd:a9:38";
+                ip-address = "10.0.2.52";
+              }
+              # Cluster Node 3
+              {
+                hw-address = "e0:70:ea:a5:e8:bc";
+                ip-address = "10.0.2.53";
+              }
+              # Cluster Node 4
+              {
+                hw-address = "bc:e9:2f:88:e2:39";
+                ip-address = "10.0.2.54";
+              }
+              # Work Laptop
+              {
+                hw-address = "ac:b4:80:1c:1a:b8";
+                ip-address = "10.0.2.77";
+              }
+            ];
           }
           {
             id = 2;
