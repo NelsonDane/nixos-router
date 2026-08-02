@@ -12,7 +12,11 @@
     systemd.network.links = {
       "10-wan" = {
         matchConfig.MACAddress = "00:01:2e:90:27:0a";
-        linkConfig.Name = "wan";
+        linkConfig = {
+          Name = "wan";
+          # Clone the Spectrum Router WAN MAC
+          MACAddress = "60:33:4B:2F:3E:E6";
+        };
       };
       "10-lan" = {
         matchConfig.MACAddress = "00:01:2e:90:27:09";
