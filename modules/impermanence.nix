@@ -71,6 +71,10 @@
         "/etc/ssh/ssh_host_rsa_key"
         "/etc/ssh/ssh_host_rsa_key.pub"
       ];
+      users.ndane = {
+        files = [ ".ssh/known_hosts" ];
+        directories = [ ".config" ];
+      };
     };
   };
 }

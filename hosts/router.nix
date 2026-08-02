@@ -17,6 +17,7 @@
       config.flake.modules.nixos.nginx
       config.flake.modules.nixos.nics
       config.flake.modules.nixos.unifi
+      config.flake.modules.nixos.users
       config.flake.modules.nixos.wg
 
       {
