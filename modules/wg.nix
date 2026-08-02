@@ -18,8 +18,14 @@
       };
       wireguardPeers = [
         {
-          PublicKey = "49T7OwcbWJiZsV1iIKMC98O66zrS3J8EteKJ+CQMdhs=";
+          # Macbook
+          PublicKey = "+vHwDglP9BQCeMBkd1dPuuNIDRarNP8tOEVbG7UmnBA=";
           AllowedIPs = [ "10.0.5.2/32" ];
+        }
+        {
+          # iPhone
+          PublicKey = "JLEvAKIRz3A+X+olo2Q7S7/kSI/0vddr8by8j9iK3yM=";
+          AllowedIPs = [ "10.0.5.3/32" ];
         }
       ];
     };
