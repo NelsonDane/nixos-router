@@ -61,6 +61,7 @@
         "/var/db/sudo"
         "/var/lib/unifi"
         "/var/lib/home-assistant"
+        "/var/lib/kea"
       ];
       files = [
         "/etc/machine-id"

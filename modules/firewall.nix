@@ -13,6 +13,7 @@
     networking.nftables.enable = true;
     networking.nftables.ruleset = ''
       define lan_net = 10.0.2.0/24
+      define wg_net = 10.0.30.0/24
 
       table inet filter {
         chain input {
@@ -33,8 +34,9 @@
           # reach services on the router itself (DNS, SSH, DHCP, etc).
           iifname "lan" accept
 
-          # From WAN, only allow a little ICMP
+          # From WAN, only allow a little ICMP and WireGuard
           iifname "wan" icmp type { echo-request, destination-unreachable, time-exceeded } accept
+          iifname "wan" udp dport 51820 accept
         }
 
         chain forward {
@@ -47,6 +49,9 @@
 
           # Let lan access the internet
           iifname "lan" oifname "wan" accept
+
+          # Let WireGuard clients access the internet
+          iifname "wg0" oifname "wan" accept
         }
       }
 
@@ -56,6 +61,9 @@
 
           # Rewrite LAN clients' source address to the router's WAN address
           ip saddr $lan_net oifname "wan" masquerade
+
+          # Rewrite WireGuard clients' source address to the router's WAN address
+          ip saddr $wg_net oifname "wan" masquerade
         }
       }
     '';
