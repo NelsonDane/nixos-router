@@ -5,6 +5,8 @@
     boot.kernel.sysctl = {
       "net.ipv4.conf.wan.rp_filter" = 1;
       "net.ipv4.conf.lan.rp_filter" = 1;
+      "net.ipv4.conf.guest.rp_filter" = 1;
+      "net.ipv4.conf.iot.rp_filter" = 1;
     };
 
     # Disable default firewall
@@ -13,7 +15,9 @@
     networking.nftables.enable = true;
     networking.nftables.ruleset = ''
       define lan_net = 10.0.2.0/24
-      define wg_net = 10.0.30.0/24
+      define guest_net = 10.0.3.0/24
+      define iot_net = 10.0.4.0/24
+      define wg_net = 10.0.5.0/24
 
       table inet filter {
         chain input {
@@ -34,6 +38,12 @@
           # reach services on the router itself (DNS, SSH, DHCP, etc).
           iifname "lan" accept
 
+          # From guest/IoT, only allow DNS, DHCP and mDNS to the router
+          iifname { "guest", "iot" } tcp dport 53 accept
+          iifname { "guest", "iot" } udp dport 53 accept
+          iifname { "guest", "iot" } udp dport 67 accept
+          iifname { "guest", "iot" } udp dport 5353 accept
+
           # From WAN, only allow a little ICMP and WireGuard
           iifname "wan" icmp type { echo-request, destination-unreachable, time-exceeded } accept
           iifname "wan" udp dport 51820 accept
@@ -47,11 +57,18 @@
           ct state established,related accept
           ct state invalid drop
 
-          # Let lan access the internet
-          iifname "lan" oifname "wan" accept
+          # Let lan access everything (matching OPNsense default LAN rule)
+          iifname "lan" accept
 
-          # Let WireGuard clients access the internet
-          iifname "wg0" oifname "wan" accept
+          # Let guest reach the internet (and everything, like OPNsense)
+          iifname "guest" accept
+
+          # IoT is isolated: internet only, no access to lan
+          iifname "iot" oifname "lan" drop
+          iifname "iot" oifname "wan" accept
+
+          # Let WireGuard clients reach the router network
+          iifname "wg0" accept
         }
       }
 
@@ -59,10 +76,10 @@
         chain postrouting {
           type nat hook postrouting priority 100; policy accept;
 
-          # Rewrite LAN clients' source address to the router's WAN address
+          # Rewrite clients' source address to the router's WAN address
           ip saddr $lan_net oifname "wan" masquerade
-
-          # Rewrite WireGuard clients' source address to the router's WAN address
+          ip saddr $guest_net oifname "wan" masquerade
+          ip saddr $iot_net oifname "wan" masquerade
           ip saddr $wg_net oifname "wan" masquerade
         }
       }

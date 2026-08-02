@@ -14,14 +14,14 @@
       wireguardPeers = [
         {
           PublicKey = "49T7OwcbWJiZsV1iIKMC98O66zrS3J8EteKJ+CQMdhs=";
-          AllowedIPs = [ "10.0.30.2/32" ];
+          AllowedIPs = [ "10.0.5.2/32" ];
         }
       ];
     };
 
     systemd.network.networks."30-wg0" = {
       matchConfig.Name = "wg0";
-      address = [ "10.0.30.1/24" ];
+      address = [ "10.0.5.1/24" ];
       networkConfig = {
         IPv4Forwarding = true;
         IPv6Forwarding = true;
