@@ -3,10 +3,11 @@
     # Reject packets that arrive on a different interface
     # https://pavluk.org/blog/2022/01/26/nixos_router.html
     boot.kernel.sysctl = {
-      "net.ipv4.conf.wan.rp_filter" = 1;
-      "net.ipv4.conf.lan.rp_filter" = 1;
-      "net.ipv4.conf.guest.rp_filter" = 1;
-      "net.ipv4.conf.iot.rp_filter" = 1;
+      "net.ipv4.conf.all.rp_filter" = 1;
+      "net.ipv4.conf.default.rp_filter" = 1;
+      "net.ipv4.conf.all.log_martians" = true;
+      "net.ipv4.conf.default.log_martians" = true;
+      "net.ipv4.icmp_ignore_bogus_error_responses" = true;
     };
 
     # Disable default firewall
@@ -48,6 +49,9 @@
           iifname { "guest", "iot" } tcp dport { 8080, 8880, 8843, 6789 } accept
           iifname { "guest", "iot" } udp dport { 3478, 10001 } accept
 
+          # WireGuard peers can reach router-hosted services (DNS, nginx, etc.)
+          iifname "wg0" accept
+
           # From WAN, only allow a little ICMP and WireGuard
           iifname "wan" icmp type { echo-request, destination-unreachable, time-exceeded } accept
           iifname "wan" udp dport 51820 accept
@@ -64,7 +68,8 @@
           # Let lan access everything (matching OPNsense default LAN rule)
           iifname "lan" accept
 
-          # Let guest reach the internet (and everything, like OPNsense)
+          # Guest is isolated from the LAN, but can reach the internet
+          iifname "guest" oifname "lan" drop
           iifname "guest" accept
 
           # IoT is isolated: internet only, no access to lan
