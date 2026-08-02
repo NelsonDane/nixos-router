@@ -1,6 +1,12 @@
 {
-  flake.modules.nixos.dhcp = {
+  flake.modules.nixos.dhcp = { lib, ... }: {
     # https://casualcompute.com/posts/creating-a-basic-router-using-nixos/#implementing-dhcp
+    systemd.services.kea-dhcp4-server.serviceConfig = {
+      Restart = lib.mkForce "always";
+      RestartSec = lib.mkForce "15s";
+      DynamicUser = lib.mkForce false;
+    };
+
     services.kea.dhcp4 = {
       enable = true;
       settings = {
