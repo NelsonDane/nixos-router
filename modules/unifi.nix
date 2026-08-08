@@ -6,5 +6,6 @@ _: {
       # https://github.com/NixOS/nixpkgs/issues/461961
       mongodbPackage = pkgs.mongodb-ce;
     };
+    persistence.extraDirectories = [ "/var/lib/unifi" ];
   };
 }
