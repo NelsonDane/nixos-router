@@ -113,5 +113,7 @@
         ];
       };
     };
+
+    persistence.extraDirectories = [ "/var/lib/kea" ];
   };
 }

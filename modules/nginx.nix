@@ -52,5 +52,7 @@ in
         reloadServices = [ "nginx" ];
       };
     };
+
+    persistence.extraDirectories = [ "/var/lib/acme" ];
   };
 }
