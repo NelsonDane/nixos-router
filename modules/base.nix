@@ -1,9 +1,11 @@
 _: {
-  flake.modules.nixos.base = {
+  flake.modules.nixos.base = { pkgs, ... }: {
     # Nix settings
     nixpkgs.config.allowUnfree = true;
     nix = {
+      # Use Lix
       enable = true;
+      package = pkgs.lixPackageSets.stable.lix;
       # Garbage collection + store optimise
       gc = {
         automatic = true;

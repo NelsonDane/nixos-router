@@ -42,6 +42,7 @@
           mapping = {
             "unifi.nelsondane.com" = "10.0.2.1";
             "ha.nelsondane.com" = "10.0.2.1";
+            "seafile.nelsondane.com" = "10.0.2.1";
             "cluster.nelsondane.com" = "10.0.2.1"; # covers *.cluster.nelsondane.com
           };
         };
