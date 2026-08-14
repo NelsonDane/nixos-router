@@ -3,6 +3,7 @@ let
   subdomains = {
     "unifi" = "https://127.0.0.1:8443";
     "ha" = "http://127.0.0.1:8123";
+    "seafile" = "http://10.0.2.50:80";
     "*.cluster" = "http://10.0.2.50:80";
   };
 in
