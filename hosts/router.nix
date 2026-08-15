@@ -12,6 +12,7 @@
       config.flake.modules.nixos.disko
       config.flake.modules.nixos.dns
       config.flake.modules.nixos.firewall
+      config.flake.modules.nixos.grafana
       config.flake.modules.nixos.ha
       config.flake.modules.nixos.impermanence
       config.flake.modules.nixos.mdns
