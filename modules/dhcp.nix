@@ -7,9 +7,16 @@
       DynamicUser = lib.mkForce false;
     };
 
+    # https://kea.readthedocs.io/en/stable/arm/dhcp4-srv.html
     services.kea.dhcp4 = {
       enable = true;
       settings = {
+        # Expose a unix control socket so kea-exporter can read stats/pools
+        control-socket = {
+          socket-type = "unix";
+          socket-name = "/run/kea/kea-dhcp4.socket";
+        };
+
         interfaces-config.interfaces = [
           "lan"
           "guest"
@@ -72,11 +79,6 @@
               {
                 hw-address = "bc:e9:2f:88:e2:39";
                 ip-address = "10.0.2.54";
-              }
-              # Work Laptop
-              {
-                hw-address = "ac:b4:80:1c:1a:b8";
-                ip-address = "10.0.2.77";
               }
             ];
           }

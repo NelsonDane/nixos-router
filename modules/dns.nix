@@ -11,6 +11,7 @@
     # Unbound DNS caching server
     services.unbound = {
       enable = true;
+      localControlSocketPath = "/run/unbound/unbound.ctl";
       settings.server = {
         interface = [ "127.0.0.8" ];
         do-ip4 = true;
@@ -28,10 +29,18 @@
     services.blocky = {
       enable = true;
       settings = {
-        ports.dns = [
-          "10.0.2.1:53"
-          "127.0.0.1:53"
-        ];
+        ports = {
+          dns = [
+            "10.0.2.1:53"
+            "127.0.0.1:53"
+          ];
+          # Prometheus metrics + API on loopback only
+          http = [ "127.0.0.1:4000" ];
+        };
+        prometheus = {
+          enable = true;
+          path = "/metrics";
+        };
         connectIPVersion = "v4";
 
         upstreams.groups.default = [ "127.0.0.8" ]; # Unbound
