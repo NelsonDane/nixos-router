@@ -43,7 +43,14 @@
         };
         connectIPVersion = "v4";
 
-        upstreams.groups.default = [ "127.0.0.8" ]; # Unbound
+        upstreams = {
+          strategy = "strict";
+          groups.default = [
+            "127.0.0.8" # Unbound
+            "1.1.1.1" # Cloudflare
+            "9.9.9.9" # Quad9
+          ];
+        };
 
         # Split-horizon: resolve locally-served subdomains to the router
         # instead of reaching out to the public records (Oracle jumphost).
