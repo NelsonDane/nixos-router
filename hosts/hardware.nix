@@ -10,12 +10,16 @@ _: {
       imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
       # Bootloader
-      boot.loader.systemd-boot.enable = true;
+      boot.loader.systemd-boot = {
+        enable = true;
+        configurationLimit = 5;
+      };
       boot.loader.efi.canTouchEfiVariables = true;
 
       boot.initrd.availableKernelModules = [
         "xhci_pci"
         "ahci"
+        "r8169"
       ];
       boot.initrd.kernelModules = [ "dm-snapshot" ];
       boot.kernelModules = [ "kvm-intel" ];
