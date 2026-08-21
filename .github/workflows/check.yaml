@@ -32,4 +32,4 @@ jobs:
         with:
           diagnostic-endpoint: ""
       - name: Nix Check
-        run: nix flake check
+        run: nix flake check --no-build

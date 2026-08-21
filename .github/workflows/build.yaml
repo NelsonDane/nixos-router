@@ -34,3 +34,6 @@ jobs:
       - name: Nix Linux Build
         run: |
           nix build ".#nixosConfigurations.router.config.system.build.toplevel" --no-link
+      - name: Nix Deploy Schema Check
+        run: |
+          nix build ".#checks.x86_64-linux.deploy-schema" --no-link
