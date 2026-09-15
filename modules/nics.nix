@@ -26,6 +26,23 @@
       };
     };
 
+    systemd.network.netdevs = {
+      "20-guest" = {
+        netdevConfig = {
+          Kind = "vlan";
+          Name = "guest";
+        };
+        vlanConfig.Id = 20;
+      };
+      "30-iot" = {
+        netdevConfig = {
+          Kind = "vlan";
+          Name = "iot";
+        };
+        vlanConfig.Id = 30;
+      };
+    };
+
     systemd.network.networks = {
       "10-wan" = {
         matchConfig.Name = "wan";
