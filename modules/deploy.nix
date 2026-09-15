@@ -29,7 +29,7 @@ in
   perSystem = { system, ... }: {
     apps.deploy-rs = {
       type = "app";
-      program = "${deploy-rs.packages.${system}.deploy-rs}/bin/deploy";
+      program = "${inputs.nixpkgs.legacyPackages.${system}.deploy-rs}/bin/deploy";
     };
     checks = lib.optionalAttrs (system == sys) (deploy-rs.lib.${sys}.deployChecks config.flake.deploy);
   };
