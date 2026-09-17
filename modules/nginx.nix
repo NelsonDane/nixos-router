@@ -1,10 +1,8 @@
 let
-  domain = "nelsondane.com";
+  domain = "redbarn.casa";
   subdomains = {
     "unifi" = "https://127.0.0.1:8443";
     "ha" = "http://127.0.0.1:8123";
-    "seafile" = "http://10.0.2.50:80";
-    "*.cluster" = "http://10.0.2.50:80";
   };
 in
 {
@@ -41,10 +39,7 @@ in
       acceptTerms = true;
       certs."${domain}" = {
         inherit domain;
-        extraDomainNames = [
-          "*.${domain}"
-          "*.cluster.${domain}"
-        ];
+        extraDomainNames = [ "*.${domain}" ];
         group = "nginx";
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
