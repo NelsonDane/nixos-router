@@ -50,6 +50,8 @@
           (inputs.import-tree ./modules)
           (inputs.import-tree ./hosts)
         ];
+
+        perSystem = { system, ... }: { packages.agenix = inputs.agenix-rekey.packages.${system}.default; };
       };
     in
     dendritic
