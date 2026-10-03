@@ -19,8 +19,8 @@
 
         # Blocky does caching
         prefetch = true;
-        cache-max-ttl = 60;
-        cache-max-negative-ttl = 60;
+        cache-max-ttl = 3600;
+        cache-max-negative-ttl = 300;
         serve-original-ttl = true;
       };
     };
