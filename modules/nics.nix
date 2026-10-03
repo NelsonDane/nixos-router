@@ -46,7 +46,12 @@
     systemd.network.networks = {
       "10-wan" = {
         matchConfig.Name = "wan";
-        networkConfig.DHCP = "ipv4";
+        networkConfig = {
+          DHCP = "ipv4";
+          # Without this, networkd-wait-online considers "wan" online as
+          # soon as it gets a link-local IPv6 address instead of an actual IPv4 lease.
+          RequiredFamilyForOnline = "ipv4";
+        };
       };
       "10-lan" = {
         matchConfig.Name = "lan";
