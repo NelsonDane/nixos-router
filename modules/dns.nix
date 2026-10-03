@@ -22,6 +22,7 @@
         cache-max-ttl = 3600;
         cache-max-negative-ttl = 300;
         serve-original-ttl = true;
+        num-threads = 4;
       };
     };
 
@@ -44,7 +45,7 @@
         connectIPVersion = "v4";
 
         upstreams = {
-          strategy = "strict";
+          strategy = "parallel_best";
           groups.default = [
             "127.0.0.8" # Unbound
             "1.1.1.1" # Cloudflare

@@ -10,6 +10,12 @@
     networking.useNetworkd = true;
     systemd.network.enable = true;
 
+    # Wait for all interfaces online before starting services
+    systemd.network.wait-online = {
+      anyInterface = false;
+      timeout = 180;
+    };
+
     # Pin physical NICs to wan/lan names
     systemd.network.links = {
       "10-wan" = {
