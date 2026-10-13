@@ -34,7 +34,7 @@ in
     };
 
     # https://wiki.nixos.org/wiki/ACME
-    age.secrets.cloudflare.rekeyFile = ../secrets/cloudflare.age;
+    age.secrets.cloudflare-redbarn.rekeyFile = ../secrets/cloudflare-redbarn.age;
     security.acme = {
       acceptTerms = true;
       certs."${domain}" = {
@@ -44,7 +44,7 @@ in
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
         dnsPropagationCheck = true;
-        environmentFile = config.age.secrets.cloudflare.path;
+        environmentFile = config.age.secrets.cloudflare-redbarn.path;
         reloadServices = [ "nginx" ];
       };
     };
