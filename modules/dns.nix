@@ -89,5 +89,12 @@
         };
       };
     };
+
+    # Retry bind on 10.0.2.1:53 until the LAN address exists at boot
+    # instead of hitting the start limit and staying down.
+    systemd.services.blocky.serviceConfig = {
+      RestartSec = "10";
+      StartLimitIntervalSec = 0;
+    };
   };
 }
