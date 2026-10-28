@@ -33,6 +33,8 @@
         ports = {
           dns = [
             "10.0.2.1:53"
+            "10.0.3.1:53"
+            "10.0.4.1:53"
             "127.0.0.1:53"
           ];
           # Prometheus metrics + API on loopback only
