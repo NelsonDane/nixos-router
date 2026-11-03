@@ -36,6 +36,12 @@ _: {
     # Timezone
     time.timeZone = "America/New_York";
 
+    environment.systemPackages = with pkgs; [
+      ethtool
+      iperf3
+      tcpdump
+    ];
+
     # Disable docs
     documentation = {
       enable = false;
