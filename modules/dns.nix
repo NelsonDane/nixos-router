@@ -61,6 +61,7 @@
           mapping = {
             "unifi.redbarn.casa" = "10.0.2.1";
             "ha.redbarn.casa" = "10.0.2.1";
+            "netbox.redbarn.casa" = "10.0.2.1";
             # Forward to cluster
             "nelsondane.com" = "10.0.2.50";
             "cluster.nelsondane.com" = "10.0.2.50";
