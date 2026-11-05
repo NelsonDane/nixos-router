@@ -1,8 +1,9 @@
 let
   domain = "redbarn.casa";
   subdomains = {
-    "unifi" = "https://127.0.0.1:8443";
     "ha" = "http://127.0.0.1:8123";
+    "netbox" = "http://127.0.0.1:8000";
+    "unifi" = "https://127.0.0.1:8443";
   };
 in
 {
@@ -25,10 +26,16 @@ in
         extraConfig = ''
           add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
         '';
-        locations."/" = {
-          proxyPass = subdomains.${subdomain};
-          proxyWebsockets = true;
-          recommendedProxySettings = true;
+        locations = {
+          "/" = {
+            proxyPass = subdomains.${subdomain};
+            proxyWebsockets = true;
+            recommendedProxySettings = true;
+          };
+        }
+        # NetBox requires nginx to serve /static/ directly from STATIC_ROOT
+        // lib.optionalAttrs (subdomain == "netbox") {
+          "/static/".alias = config.services.netbox.settings.STATIC_ROOT;
         };
       });
     };

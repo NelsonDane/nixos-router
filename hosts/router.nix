@@ -15,6 +15,7 @@
       config.flake.modules.nixos.ha
       config.flake.modules.nixos.impermanence
       config.flake.modules.nixos.mdns
+      config.flake.modules.nixos.netbox
       config.flake.modules.nixos.nginx
       config.flake.modules.nixos.nics
       config.flake.modules.nixos.unifi
