@@ -18,26 +18,35 @@ in
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
 
-      virtualHosts = lib.genAttrs (lib.attrNames subdomains) (subdomain: {
-        serverName = "${subdomain}.${domain}";
-        useACMEHost = "${domain}";
-        forceSSL = true;
-        # Strict HSTS once we always serve over TLS
-        extraConfig = ''
-          add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
-        '';
-        locations = {
-          "/" = {
-            proxyPass = subdomains.${subdomain};
-            proxyWebsockets = true;
-            recommendedProxySettings = true;
+      virtualHosts =
+        lib.genAttrs (lib.attrNames subdomains) (subdomain: {
+          serverName = "${subdomain}.${domain}";
+          useACMEHost = "${domain}";
+          forceSSL = true;
+          # Strict HSTS once we always serve over TLS
+          extraConfig = ''
+            add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+          '';
+          locations = {
+            "/" = {
+              proxyPass = subdomains.${subdomain};
+              proxyWebsockets = true;
+              recommendedProxySettings = true;
+            };
+          }
+          # NetBox requires nginx to serve /static/ directly from STATIC_ROOT
+          // lib.optionalAttrs (subdomain == "netbox") {
+            "/static/".alias = config.services.netbox.settings.STATIC_ROOT;
           };
-        }
-        # NetBox requires nginx to serve /static/ directly from STATIC_ROOT
-        // lib.optionalAttrs (subdomain == "netbox") {
-          "/static/".alias = config.services.netbox.settings.STATIC_ROOT;
+        })
+        // {
+          # Catch-all for requests with no matching host header
+          # instead of silently falling back to whichever vhost is defined first.
+          "_" = {
+            default = true;
+            locations."/".return = "404";
+          };
         };
-      });
     };
 
     # https://wiki.nixos.org/wiki/ACME
