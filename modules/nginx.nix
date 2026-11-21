@@ -59,7 +59,8 @@ in
         group = "nginx";
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
-        dnsPropagationCheck = true;
+        dnsAuthoritativePropagationCheck = true;
+        dnsRecursivePropagationCheck = true;
         environmentFile = config.age.secrets.cloudflare-redbarn.path;
         reloadServices = [ "nginx" ];
       };
