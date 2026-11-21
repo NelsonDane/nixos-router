@@ -24,6 +24,7 @@ _: {
       boot.initrd.kernelModules = [ "dm-snapshot" ];
       boot.kernelModules = [ "kvm-intel" ];
       boot.extraModulePackages = [ ];
+      boot.blacklistedKernelModules = [ "sctp" ];
 
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 

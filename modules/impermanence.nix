@@ -29,7 +29,6 @@
         # https://notashelf.dev/posts/impermanence
         boot.tmp.useTmpfs = true;
         boot.initrd.systemd = {
-          enable = true;
           services.rollback = {
             description = "Rollback BTRFS root subvolume to a pristine state";
             wantedBy = [ "initrd.target" ];
