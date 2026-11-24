@@ -20,12 +20,12 @@
         {
           # Macbook
           PublicKey = "+vHwDglP9BQCeMBkd1dPuuNIDRarNP8tOEVbG7UmnBA=";
-          AllowedIPs = [ "10.0.5.2/32" ];
+          AllowedIPs = [ "10.0.5.10/32" ];
         }
         {
           # iPhone
           PublicKey = "JLEvAKIRz3A+X+olo2Q7S7/kSI/0vddr8by8j9iK3yM=";
-          AllowedIPs = [ "10.0.5.3/32" ];
+          AllowedIPs = [ "10.0.5.11/32" ];
         }
       ];
     };

@@ -51,10 +51,10 @@
             ];
             reservations = [
               # TP-Link Switch
-              {
-                hw-address = "34:60:f9:06:77:c8";
-                ip-address = "10.0.2.2";
-              }
+              # {
+              #   hw-address = "34:60:f9:06:77:c8";
+              #   ip-address = "10.0.2.2";
+              # }
               # Desktop PC
               {
                 hw-address = "a8:a1:59:bc:e4:96";
