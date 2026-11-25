@@ -30,6 +30,7 @@
     services.blocky = {
       enable = true;
       settings = {
+        log.level = "warn";
         ports = {
           dns = [
             "10.0.2.1:53"
@@ -73,10 +74,13 @@
             "stevenblack" = [ "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts" ];
             "big.oisd" = [ "https://big.oisd.nl/" ];
           };
-          clientGroupsBlock.default = [
-            "stevenblack"
-            "big.oisd"
-          ];
+          clientGroupsBlock = {
+            default = [ ];
+            "10.0.3.0/24" = [
+              "stevenblack"
+              "big.oisd"
+            ];
+          };
 
           # Blocky needs Unbound up to resolve the block list
           loading = {
